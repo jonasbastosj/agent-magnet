@@ -14,8 +14,9 @@ func _ready():
 	# Cria o player (dinossauro)
 	player = CharacterBody2D.new()
 	player.add_child(CollisionShape2D.new())
-	player.get_node("CollisionShape2D").shape = BoxShape2D.new()
-	player.get_node("CollisionShape2D").shape.size = Vector2(32, 32)
+	var shape = RectangleShape2D.new()
+	shape.size = Vector2(32, 32)
+	player.get_node("CollisionShape2D").shape = shape
 	player.add_child(Sprite2D.new())
 	player.get_node("Sprite2D").scale = Vector2(2, 2)
 	player.position = Vector2(400, SCREEN_HEIGHT - 100)
@@ -26,8 +27,9 @@ func _ready():
 	for i in range(PLATFORMS_COUNT):
 		var platform = StaticBody2D.new()
 		var collision = CollisionShape2D.new()
-		collision.shape = BoxShape2D.new()
-		collision.shape.size = Vector2(PLATFORM_WIDTH, PLATFORM_HEIGHT)
+		var shape2d = RectangleShape2D.new()
+		shape2d.size = Vector2(PLATFORM_WIDTH, PLATFORM_HEIGHT)
+		collision.shape = shape2d
 		platform.add_child(collision)
 		
 		# Visual (ColorRect verde)
