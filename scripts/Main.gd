@@ -13,23 +13,27 @@ var camera_target = 0
 func _ready():
 	# Cria o player (dinossauro)
 	player = CharacterBody2D.new()
-	player.add_child(CollisionShape2D.new())
-	var shape = RectangleShape2D.new()
-	shape.size = Vector2(32, 32)
-	player.get_node("CollisionShape2D").shape = shape
-	player.add_child(Sprite2D.new())
-	player.get_node("Sprite2D").scale = Vector2(2, 2)
 	player.position = Vector2(400, SCREEN_HEIGHT - 100)
+	
+	# Collision do player
+	var player_collision = CollisionShape2D.new()
+	var player_shape = RectangleShape2D.new()
+	player_shape.size = Vector2(32, 32)
+	player_collision.shape = player_shape
+	player.add_child(player_collision)
+	
 	player.add_script(load("res://scripts/Player.gd"))
 	add_child(player)
 	
 	# Cria plataformas formando uma torre
 	for i in range(PLATFORMS_COUNT):
 		var platform = StaticBody2D.new()
+		
+		# Collision da plataforma
 		var collision = CollisionShape2D.new()
-		var shape2d = RectangleShape2D.new()
-		shape2d.size = Vector2(PLATFORM_WIDTH, PLATFORM_HEIGHT)
-		collision.shape = shape2d
+		var platform_shape = RectangleShape2D.new()
+		platform_shape.size = Vector2(PLATFORM_WIDTH, PLATFORM_HEIGHT)
+		collision.shape = platform_shape
 		platform.add_child(collision)
 		
 		# Visual (ColorRect verde)
